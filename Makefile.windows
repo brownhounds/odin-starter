@@ -1,0 +1,30 @@
+.PHONY: run
+
+SHELL = powershell.exe
+EXE = main.exe
+
+run:
+	mkdir -Force ./bin;
+	mkdir -Force ./bin/run;
+	odin build . -out:bin/run/$(EXE);
+	./bin/run/$(EXE)
+
+clean:
+	powershell.exe -Command "Remove-Item -Recurse -Force ./bin"
+
+build:
+	mkdir -Force ./bin;
+	mkdir -Force ./bin/release;
+	odin build . -out:bin/release/$(EXE)
+
+build-debug:
+	mkdir -Force ./bin;
+	mkdir -Force ./bin/debug;
+	odin build . -out:bin/debug/$(EXE) -debug
+
+
+run-release:
+	./bin/release/$(EXE)
+
+run-debug:
+	./bin/debug/$(EXE)
